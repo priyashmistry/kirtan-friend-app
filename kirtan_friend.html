@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>How to Befriend Kirtan 2.0</title>
+  <script src="https://cdn.jsdelivr.net/npm/brython@3.13.2/brython.min.js"></script>
+</head>
+<body onload="brython()">
+  <h2>🤖 How to Befriend Kirtan.exe (Browser Edition)</h2>
+  <textarea id="output" rows="20" cols="70" readonly style="font-family: monospace;"></textarea><br>
+  <button id="run-btn">Start</button>
+
+  <script type="text/python">
+from browser import document, window
+import time
+
+def write(msg):
+    out = document["output"]
+    out.value += msg + "\\n"
+    out.scrollTop = out.scrollHeight
+
+class Kirtan:
+    def __init__(self):
+        self.friend_list = []
+        self.social_battery = 100
+
+    def approach(self, method):
+        valid_methods = [
+            'linkedin', 'instagram', 'hackathon', 'religious event',
+            'festival', 'tt court', 'badminton', 'whatsapp', 'podcast'
+        ]
+        if method.lower() in valid_methods:
+            write(f"\\n✅ You found Kirtan via {method.title()}! Initiating handshake.exe...")
+            time.sleep(1)
+            return True
+        else:
+            write("\\n❌ Method not recognized. Kirtan not found. Try approaching via more Indian means.")
+            return False
+
+    def become_friend(self, compliment, knows_AI, brings_food):
+        score = 0
+        if "explain" in compliment.lower():
+            score += 1
+        if knows_AI:
+            score += 1
+        if brings_food:
+            score += 2  # Food has high friendship value
+        if score >= 2:
+            write("🎉 Friendship established! You are now in Kirtan’s internal friend_list.")
+            self.friend_list.append("You")
+        else:
+            write("😬 Friendship request pending... Try again with more samosas or TensorFlow jokes.")
+
+    def invite(self):
+        event = window.prompt("Which event will you invite Kirtan to? (Festival/Hackathon/Coffee Chat):").strip().lower()
+        if event in ['festival', 'hackathon', 'coffee chat']:
+            write(f"🎊 Kirtan.exe has accepted the {event.title()} invite. He’ll be there early, probably organizing it.")
+        else:
+            write("🤖 Kirtan.exe is confused. Please update event preferences.")
+
+def run(event):
+    k = Kirtan()
+    write("=== HOW TO BEFRIEND KIRTAN 2.0 ===")
+    method = window.prompt("How did you meet Kirtan? (LinkedIn/Instagram/Hackathon/Festival/TT Court/WhatsApp/Podcast):")
+    if k.approach(method):
+        compliment = window.prompt("Give Kirtan a compliment:")
+        knows_AI = window.prompt("Do you know AI/ML? (yes/no):").strip().lower() == "yes"
+        brings_food = window.prompt("Are you bringing food? (yes/no):").strip().lower() == "yes"
+        k.become_friend(compliment, knows_AI, brings_food)
+        k.invite()
+    else:
+        write("\\n🛑 Mission failed. Kirtan remains a mysterious PhD entity.")
+
+document["run-btn"].bind("click", run)
+  </script>
+</body>
+</html>
